@@ -1,0 +1,35 @@
+{% load endless %}
+{% paginate pins %}
+
+<div class="pin">
+<a href="">
+	<div style="width:198px; text-align: center; padding: 50px 0 50px 0;"><span style="font-family: impact; font-size: 24px;">Create Pin</span></div> 	
+	</div>
+</a>
+
+{% for pin in pins %}
+<div class="pin">
+    <img src="{{ MEDIA_URL }}{{ pin.image }}" class="pin-image" />
+	<hr>
+ 	<div class="description">
+   		{{ pin.description|linebreaks }}
+	</div>
+	<hr>
+    <div class="user">
+        <span style="font-weight: bold">{{ pin.created_by.username }}</span><br> {{ pin.pub_date|date:"M d Y" }}<br/>
+        <span class="board-name">{{ pin.board.name }}</span>
+    </div>
+	<hr>
+    {% if pin.comment_set.all %}
+        <hr>
+        {% for comment in pin.comment_set %}
+        <span class="user">{{ comment.user }}</span> said:<br/>
+        {{ comment.comment|linebreaksbr }}
+        {% endfor %}
+    {% endif %}
+	<div class="pin_btn">
+		<button class="btn btn-sm">Pin</button>
+	</div>
+</div>
+{% endfor %}
+{% show_more %}

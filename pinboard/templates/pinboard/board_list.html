@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Pintastic! My Boards{% endblock %}
+
+{% block extrascripts %}
+<script src="http://masonry.desandro.com/masonry.pkgd.min.js"></script>
+<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+<script>
+
+$('document').ready(function() {
+	$('.pin').mouseover(function() {
+		$(this).find('.pin_btn').css('visibility', 'visible');
+	});
+
+	$('.pin').mouseout(function() {
+		$(this).find('.pin_btn').css('visibility', 'hidden');
+	});
+
+	$.endlessPaginate({
+		paginateOnScroll: true,
+	});
+	
+	$('.row').masonry({
+		itemSelector: '.pin'
+	});
+});
+</script>
+<style type="text/css">
+	.container {max-width: 1060px; min-width: 800px;}
+
+	.board {
+		text-align: center;
+		background-color: #fff;
+		float: left;
+		list-style-type: none;
+		width: 200px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		margin: 6px;
+		box-shadow: 0px 3px 4px #ccc;
+		padding: 50px 0 50px 0;}
+
+	.board:hover {
+		box-shadow: 0px 3px 3px #aaa;
+		border: 1px solid #aaa;}
+
+	.title {
+		font-family: impact;
+		font-size: 24px;}
+
+</style>
+{% endblock %}
+
+{% block content %}
+	<a href="">
+		<div class="board">
+			<span class="title">Create Board</span>
+		</div>
+	</a>
+	{% if boards %}
+		{% for board in boards %}
+			<a href="{% url 'pinboard:board_details' board.id %}">
+				<div class="board">
+					<span class="title">{{board}}</span>
+				</div>
+			</a>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

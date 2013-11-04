@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Pintastic! Home{% endblock %}
+
+{% block extrascripts %}
+<script src="http://masonry.desandro.com/masonry.pkgd.min.js"></script>
+<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+<script>
+
+$('document').ready(function() {
+	$('.pin').mouseover(function() {
+		$(this).find('.pin_btn').css('visibility', 'visible');
+	});
+
+	$('.pin').mouseout(function() {
+		$(this).find('.pin_btn').css('visibility', 'hidden');
+	});
+
+	$.endlessPaginate({
+		paginateOnScroll: true,
+	});
+	
+	$('.row').masonry({
+		itemSelector: '.pin'
+	});
+});
+</script>
+<style type="text/css">
+	.container {max-width: 1060px; min-width: 800px;}
+	.pin_btn {
+		border: 1px solid #ccc;
+		box-shadow: 0px 2px 2px #ddd;
+		border-radius: 5px;}
+	
+	.pin {
+		background-color: #fff;
+		float: left;
+		list-style-type: none;
+		width: 200px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		margin: 6px;
+		box-shadow: 0px 3px 4px #ccc;}
+
+	.pin:hover {
+		box-shadow: 0px 3px 3px #aaa;
+		border: 1px solid #aaa;}
+
+	.pin-image {
+		width:198px;
+		border-radius: 5px 5px 0 0;}
+
+	.user {
+		padding: 10px;
+		font-size: .8em;}
+
+	.board-name {
+		color: #ccc;}
+
+	.description {padding: 10px;}
+	.description p {padding: 0px; margin:0px;}
+
+	.pin_btn {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		visibility: hidden;}
+
+	hr {margin:0px; padding:0px;}
+</style>
+{% endblock %}
+
+{% block content %}
+	{% if pins %}
+		{% include page_template %}
+	{% else %}
+		<p>No pins have been uploaded. Sorry.</p>
+	{% endif %}
+
+{% endblock %}

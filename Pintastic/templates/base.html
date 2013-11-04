@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{% block title %}Pintastic!{% endblock %}</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<style type="text/css">
+	body {padding-top: 70px; background-color: #ddd;}
+	.navTitle {position:absolute; left: 50%;}
+	h2 {padding:0; margin:9px 0; position: relative; left: -50%; font-family: impact, sans-serif;}
+	a:hover {text-decoration: none;)
+</style>
+{% block extrascripts %}{% endblock %}
+</head>
+
+<body>
+	<div class="container">
+		<div class="navbar navbar-fixed-top navbar-default">
+			<div class="container">
+				<div class="navTitle text-center">
+					<h2><a href="/">Pintastic!</a></h2>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					{% if not user.is_authenticated %}
+						{% if user.is_staff %}
+							<li><a href="/admin/">Admin</a></li>
+						{% endif %}
+						<li><a href="{% url 'auth_login' %}">Login</a></li>
+					{% else %}
+						<li><a href="{% url 'pinboard:boards' %}">My Boards</a></li>
+						{% if user.is_staff %}
+							<li><a href="/admin/">Admin</a></li>
+						{% endif %}
+						<li><a href="{% url 'auth_logout' %}">Logout</a></le>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+			<div class="row">
+				<!-- main content area -->
+					{% if messages %}
+						<ul class="messages">
+					{% for message in messages %}
+						<li class="alert alert-success">{{ message }}</li>
+					{% endfor %}
+						</ul>
+					{% endif %}
+					{% block content %}
+		
+					{% endblock %}
+			</div>
+	</div><!-- container -->
+</body>
+</html>
