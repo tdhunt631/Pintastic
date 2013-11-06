@@ -4,4 +4,5 @@
 local_settings.py
 uploads/
 media/
+cache/
 Pintastic.sqlite3
