@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from sorl.thumbnail import ImageField
+from django.core.urlresolvers import reverse
 
 class Pin(models.Model):
-	image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+	image = ImageField(upload_to='uploads/%Y/%m/%d/')
 	description = models.TextField()
 	created_by = models.ForeignKey(User)
 	pub_date = models.DateTimeField(auto_now_add=True)

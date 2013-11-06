@@ -48,23 +48,34 @@ class Board_details(AjaxListView):
 	def get_queryset(self):
 		return Pin.objects.filter(is_public=True).filter(board__in=self.kwargs['pk']).order_by('-pub_date')
 
-class Pin_details(CreateView):
+class Pin_details(DetailView):
+	model = Pin
 	form_class = CommentForm
 	template_name = 'pinboard/pin_details.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(Pin_details, self).get_context_data(**kwargs)
+		context['form'] = CommentForm()
 		currentPin = get_object_or_404(Pin, id=self.kwargs['pk'])
 		context['comments'] = Comment.objects.filter(pin = currentPin)
-		context['pin'] = get_object_or_404(Pin, id=self.kwargs['pk'])
 		return context
 
-	def get_form(self, form_class):
-		form = super(Pin_details, self).get_form(form_class)
-		form.instance.user = self.request.user
-		form.instance.pin = get_object_or_404(Pin, id=self.kwargs['pk'])
-		return form 
+	def get_success_url(self):
+		return reverse('pin_details', kwargs={'pk': self.object.pk})
+
+class Add_comment(CreateView):
+	model = Comment
+	fields = ['comment']
+	template_name = 'pinboard/pin_details.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(Add_comment, self).get_context_data(**kwargs)
+		context['form'] = CommentForm()
+		currentPin = get_object_or_404(Pin, id=self.kwargs['pk'])
+		context['comments'] = Comment.objects.filter(pin = currentPin)
+		return context
 
 	def get_success_url(self):
-		return reverse('pinboard:pin_details', args=[str(self.kwargs['pk'])])
+		return reverse('pin_details', kwargs={'pk': self.object.pk})
+
 

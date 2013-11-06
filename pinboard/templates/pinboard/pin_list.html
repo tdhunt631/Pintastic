@@ -1,4 +1,5 @@
 {% load endless %}
+{% load thumbnail %}
 {% paginate pins %}
 
 <div class="pin">
@@ -9,7 +10,9 @@
 
 {% for pin in pins %}
 <div class="pin">
-    <img src="{{ MEDIA_URL }}{{ pin.image }}" class="pin-image" />
+{% thumbnail pin.image "198" as image %} 
+	<a href="{% url 'pinboard:pin_details' pin.id %}" style="cursor: -webkit-zoom-in; cursor: -moz-zoom-in;"><img src="{{ image.url  }}" class="pin-image" border=0 /></a>
+	{% endthumbnail %}
 	<hr>
  	<div class="description">
    		{{ pin.description|linebreaks }}
@@ -20,13 +23,6 @@
         <span class="board-name">{{ pin.board.name }}</span>
     </div>
 	<hr>
-    {% if pin.comment_set.all %}
-        <hr>
-        {% for comment in pin.comment_set %}
-        <span class="user">{{ comment.user }}</span> said:<br/>
-        {{ comment.comment|linebreaksbr }}
-        {% endfor %}
-    {% endif %}
 	<div class="pin_btn">
 		<button class="btn btn-sm">Pin</button>
 	</div>
