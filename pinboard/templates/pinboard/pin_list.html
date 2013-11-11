@@ -1,31 +1,26 @@
-{% load endless %}
 {% load thumbnail %}
-{% paginate pins %}
+{% load gravatar %}
+{% load endless %}
 
-<div class="pin">
-<a href="">
-	<div style="width:198px; text-align: center; padding: 50px 0 50px 0;"><span style="font-family: impact; font-size: 24px;">Create Pin</span></div> 	
-	</div>
-</a>
+{% block extrascripts %}
 
+    <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+
+    <script>
+		$.endlessPaginate({
+			paginateOnScroll: true,
+			paginateOnScrollMargin: 10,
+			onCompleted: function(){	
+//				mason();
+			},
+		});
+	</script>
+
+{% endblock %}
+
+{% lazy_paginate 15,10 pins %}
 {% for pin in pins %}
-<div class="pin">
-{% thumbnail pin.image "198" as image %} 
-	<a href="{% url 'pinboard:pin_details' pin.id %}" style="cursor: -webkit-zoom-in; cursor: -moz-zoom-in;"><img src="{{ image.url  }}" class="pin-image" border=0 /></a>
-	{% endthumbnail %}
-	<hr>
- 	<div class="description">
-   		{{ pin.description|linebreaks }}
-	</div>
-	<hr>
-    <div class="user">
-        <span style="font-weight: bold">{{ pin.created_by.username }}</span><br> {{ pin.pub_date|date:"M d Y" }}<br/>
-        <span class="board-name">{{ pin.board.name }}</span>
-    </div>
-	<hr>
-	<div class="pin_btn">
-		<button class="btn btn-sm">Pin</button>
-	</div>
-</div>
+	{% include 'pinboard/_pin.html' %}
 {% endfor %}
 {% show_more %}
+

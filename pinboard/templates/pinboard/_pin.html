@@ -1,0 +1,26 @@
+{% load thumbnail %}
+{% load gravatar %}
+	<div class="pin">
+		{% thumbnail pin.image "198" as image %} 
+		<a href="{% url 'pinboard:pin_details' pin.id %}" style="cursor: -webkit-zoom-in; cursor: -moz-zoom-in;"><img src="{{ image.url  }}" class="pin-image" border=0 /></a>
+	{% endthumbnail %}
+		<hr>
+ 		<div class="description">
+   			{{ pin.description|linebreaks }}
+		</div>
+		<hr>
+    	<div class="user clearfix">
+			<div class="gravatar pull-left" style="margin-right: 5px;">
+				<img src="{% gravatar_for_email pin.created_by.email %}" height="40" />
+			</div>
+			<div style="padding: 11px 0 0 10px;">
+				<span style="font-weight: bold">{{ pin.created_by.username }}</span><br> {{ pin.pub_date|date:"M d Y" }}<br/>
+				<span class="board-name">{{ pin.board.name }}</span>
+			</div>
+    	</div>
+		<hr>
+		<div class="pin_btn">
+			<a href="{% url 'pinboard:pin_it' pin.id %}" class="btn btn-sm btn-primary">Pin</a>
+		</div>
+	</div>
+

@@ -53,7 +53,7 @@ $('document').ready(function() {
 {% endblock %}
 
 {% block content %}
-	<a href="">
+	<a href="{% url 'pinboard:add_board' %}">
 		<div class="board">
 			<span class="title">Create Board</span>
 		</div>

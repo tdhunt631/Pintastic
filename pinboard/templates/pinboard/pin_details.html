@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load gravatar %}
 
 {% block title %}Board Details{% endblock %}
 
@@ -61,10 +62,13 @@ hr {height: 1px; color: #ccc; margin: 0; padding: 0;}
 				{% thumbnail pin.image "800" as image %}
 					<img src="{{ image.url }}" />
 				{% endthumbnail %}
-				<div class="owner">
-					<span style="font-weight: bold;">{{ pin.created_by }}</span>
-					<br>
-					{{ pin.pub_date }}
+				<div class="owner clearfix">
+					<div class="gravatar pull-left" style="margin-right: 5px;">
+						<img src="{% gravatar_for_email pin.created_by.email %}" height="40" />
+					</div>
+					<div style="padding: 5px 0 0 10px;">
+						<span style="font-weight: bold">{{ pin.created_by.username }}</span><br> {{ pin.pub_date|date:"M d Y" }}<br/>
+					</div>
 				</div>
 				<hr>
 				<div class="description">
@@ -74,14 +78,20 @@ hr {height: 1px; color: #ccc; margin: 0; padding: 0;}
 			<div class="comments">
 				{% if comments %}
 					{% for comment in comments %}
-						<div class="comment">
-							<span style="font-weight: bold;">{{ comment.user }} said:</span>
-							<br>
-							<span style="position: relative; left: 15px;">{{ comment }}</span>
+						<div class="comment clearfix">
+							<div class="gravatar pull-left" style="margin-right: 5px;">
+								<img src="{% gravatar_for_email commment.user.email %}" height="40" />
+							</div>
+							<div style="padding-top: 4px;">
+								<span style="font-weight: bold;">{{ comment.user }} said:</span>
+								<br>
+								<span>{{ comment }}</span>
+							</div>
 						</div>
 						<hr>
 					{% endfor %}
 				{% endif %}
+				{% if user.is_authenticated %}
 				<div class="user">
 					<span style="font-weight: bold;">{{ request.user }}:</span>
 				</div>
@@ -92,6 +102,7 @@ hr {height: 1px; color: #ccc; margin: 0; padding: 0;}
 						<button type="submit" class="btn btn-primary">Add Comment</button>
 					</form>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	{% else %}

@@ -11,7 +11,7 @@
 	.navbar {background-color: #fefefe; box-shadow: 0px 4px 4px #ccc; border-bottom: 2px solid #bbb;}
 	.navTitle {position:absolute; left: 50%;}
 	h2 {padding:0; margin:9px 0; position: relative; left: -50%; font-family: impact, sans-serif;}
-	a:hover {text-decoration: none;)
+	a:hover {text-decoration: none;}
 </style>
 {% block extrascripts %}{% endblock %}
 </head>
@@ -39,19 +39,20 @@
 				</ul>
 			</div>
 		</div>
-			<div class="row">
+	</div>
+	<div class="container">
+	<div class="body-content">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="pin-head">
 				<!-- main content area -->
-					{% if messages %}
-						<ul class="messages">
-					{% for message in messages %}
-						<li class="alert alert-success">{{ message }}</li>
-					{% endfor %}
-						</ul>
-					{% endif %}
-					{% block content %}
+				{% block content %}
 		
-					{% endblock %}
+				{% endblock %}
+				</div>
 			</div>
+		</div>
+	</div>
 	</div><!-- container -->
 </body>
 </html>

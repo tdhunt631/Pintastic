@@ -119,12 +119,6 @@ TEMPLATE_DIRS = (
 	os.path.join(DIRNAME, "templates"),
 )
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-TEMPLATE_CONTEXT_PROCESSORS += (
-	'django.core.context_processors.request',
-	'django.contrib.messages.context_processors.messages',
-)
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,6 +134,7 @@ INSTALLED_APPS = (
 	'sorl.thumbnail',
 	'registration',
 	'endless_pagination',
+	'gravatar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -170,3 +165,11 @@ LOGGING = {
         },
     }
 }
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+	'django.core.context_processors.request',
+	'django.contrib.messages.context_processors.messages',
+)
+
+
