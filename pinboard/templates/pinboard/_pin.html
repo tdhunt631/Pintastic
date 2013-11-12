@@ -1,5 +1,6 @@
 {% load thumbnail %}
 {% load gravatar %}
+	{% for pin in pins %}
 	<div class="pin">
 		{% thumbnail pin.image "198" as image %} 
 		<a href="{% url 'pinboard:pin_details' pin.id %}" style="cursor: -webkit-zoom-in; cursor: -moz-zoom-in;"><img src="{{ image.url  }}" class="pin-image" border=0 /></a>
@@ -17,10 +18,9 @@
 				<span style="font-weight: bold">{{ pin.created_by.username }}</span><br> {{ pin.pub_date|date:"M d Y" }}<br/>
 				<span class="board-name">{{ pin.board.name }}</span>
 			</div>
-    	</div>
-		<hr>
-		<div class="pin_btn">
-			<a href="{% url 'pinboard:pin_it' pin.id %}" class="btn btn-sm btn-primary">Pin</a>
+			<div class="pin_btn">
+				<a href="{% url 'pinboard:pin_it' pin.id %}" class="btn btn-sm btn-primary">Pin</a>
+			</div>
 		</div>
 	</div>
-
+	{% endfor %}

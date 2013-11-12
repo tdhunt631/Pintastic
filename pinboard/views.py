@@ -24,7 +24,7 @@ def class_view_decorator(decorator):
 
 class Index(AjaxListView):
 	template_name = 'pinboard/index.html'
-	page_template = 'pinboard/pin_list.html'
+	page_template = 'pinboard/_pin.html'
 	model = Pin
 	context_object_name = 'pins'
 	paginate_by = 5	
@@ -42,7 +42,7 @@ class Boards(ListView):
 
 class Board_details(AjaxListView):
 	template_name = 'pinboard/board_details.html'
-	page_template = 'pinboard/pin_list.html'
+	page_template = 'pinboard/_pin.html'
 	model = Pin
 	context_object_name = 'pins'
 	paginate_by = 5

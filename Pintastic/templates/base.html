@@ -4,8 +4,8 @@
 
 <title>{% block title %}Pintastic!{% endblock %}</title>
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body {padding-top: 70px; background-color: #ddd;}
 	.navbar {background-color: #fefefe; box-shadow: 0px 4px 4px #ccc; border-bottom: 2px solid #bbb;}
@@ -34,7 +34,7 @@
 						{% if user.is_staff %}
 							<li><a href="/admin/">Admin</a></li>
 						{% endif %}
-						<li><a href="{% url 'auth_logout' %}">Logout</a></le>
+						<li><a href="{% url 'auth_logout' %}">Logout</a></li>
 					{% endif %}
 				</ul>
 			</div>
@@ -44,12 +44,10 @@
 	<div class="body-content">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="pin-head">
 				<!-- main content area -->
 				{% block content %}
 		
 				{% endblock %}
-				</div>
 			</div>
 		</div>
 	</div>
