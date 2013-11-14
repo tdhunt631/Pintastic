@@ -30,6 +30,7 @@
 						{% endif %}
 						<li><a href="{% url 'auth_login' %}">Login</a></li>
 					{% else %}
+						<li><a href="{% url 'pinboard:add_pin' %}">Create Pin</a></li>
 						<li><a href="{% url 'pinboard:boards' %}">My Boards</a></li>
 						{% if user.is_staff %}
 							<li><a href="/admin/">Admin</a></li>
